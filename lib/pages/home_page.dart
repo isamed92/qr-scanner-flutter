@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_reader/pages/pages.dart';
+import 'package:qr_reader/providers/providers.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
 import 'package:qr_reader/widgets/widgets.dart';
 
@@ -18,12 +21,29 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: const Center(
-        child: Text('HomePage'),
-      ),
+      body: _HomePageBody(),
       bottomNavigationBar: const CustomNavigatorBar(),
       floatingActionButton: const ScanButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+}
+
+class _HomePageBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //! obtener el selected menu opt
+    final uiProvider = Provider.of<UiProvider>(context);
+
+    final int currentIndex = uiProvider.selectedMenuOpt;
+
+    switch (currentIndex) {
+      case 0:
+        return const MapsPage();
+      case 1:
+        return const DirectionsPage();
+      default:
+        return const MapsPage();
+    }
   }
 }
