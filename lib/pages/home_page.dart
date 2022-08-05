@@ -45,7 +45,7 @@ class _HomePageBody extends StatelessWidget {
     // DBProvider.db.getScans().then(print);
 
     //! BORRAR REGISTRO/S
-    DBProvider.db.deleteAllScans();
+    // DBProvider.db.deleteAllScans();
 
     switch (currentIndex) {
       case 0:

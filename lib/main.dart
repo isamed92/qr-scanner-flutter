@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => UiProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ScanListProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
