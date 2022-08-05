@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_reader/models/models.dart';
 import 'package:qr_reader/pages/pages.dart';
+import 'package:qr_reader/providers/db_provider.dart';
 import 'package:qr_reader/providers/providers.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
 import 'package:qr_reader/widgets/widgets.dart';
@@ -36,6 +38,11 @@ class _HomePageBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
 
     final int currentIndex = uiProvider.selectedMenuOpt;
+
+    //todo: leer la base de datos
+    final tempScan = ScanModel(value: 'https://www.google.com');
+
+    DBProvider.db.nuevoScanRaw(tempScan);
 
     switch (currentIndex) {
       case 0:
