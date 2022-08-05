@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_reader/models/models.dart';
 import 'package:qr_reader/pages/pages.dart';
-import 'package:qr_reader/providers/db_provider.dart';
 import 'package:qr_reader/providers/providers.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
 import 'package:qr_reader/widgets/widgets.dart';
@@ -44,7 +42,10 @@ class _HomePageBody extends StatelessWidget {
     // DBProvider.db.nuevoScanRaw(tempScan);
     //! LEER EN LA DB
     // DBProvider.db.getScanById(2).then((val) => print(val!.value),);
-    DBProvider.db.getScans().then(print);
+    // DBProvider.db.getScans().then(print);
+
+    //! BORRAR REGISTRO/S
+    DBProvider.db.deleteAllScans();
 
     switch (currentIndex) {
       case 0:
