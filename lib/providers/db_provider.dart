@@ -86,7 +86,7 @@ class DBProvider {
     final db = await database;
 
     final res = await db.rawQuery('''
-      SELECT * FROM Scans WHERE type = $type
+      SELECT * FROM Scans WHERE type = '$type'
 ''');
 
     return res.isNotEmpty ? res.map((e) => ScanModel.fromJson(e)).toList() : [];

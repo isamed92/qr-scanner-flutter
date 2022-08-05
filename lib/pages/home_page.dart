@@ -47,10 +47,14 @@ class _HomePageBody extends StatelessWidget {
     //! BORRAR REGISTRO/S
     // DBProvider.db.deleteAllScans();
 
+    //? usar el scan list provider
+    final scanListProvider = Provider.of<ScanListProvider>(context);
     switch (currentIndex) {
       case 0:
+        scanListProvider.loadScansByType('geo');
         return const MapsPage();
       case 1:
+        scanListProvider.loadScansByType('http');
         return const DirectionsPage();
       default:
         return const MapsPage();
