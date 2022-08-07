@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_reader/pages/pages.dart';
 import 'package:qr_reader/providers/providers.dart';
-import 'package:qr_reader/widgets/scan_button.dart';
 import 'package:qr_reader/widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,13 +9,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Historial'),
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => scanListProvider.deleteAll(),
             icon: const Icon(Icons.delete_forever),
           )
         ],

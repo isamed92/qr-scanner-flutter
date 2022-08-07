@@ -6,12 +6,12 @@ import 'package:qr_reader/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBProvider {
-  static Database _database = _database;
+  static Database? _database;
   static final DBProvider db = DBProvider._();
 
   DBProvider._();
-  Future<Database> get database async {
-    // if (_database != null) return _database;
+  Future<Database?> get database async {
+    if (_database != null) return _database;
 
     _database = await initDB();
 
@@ -49,7 +49,7 @@ class DBProvider {
     // obtener la referencia a la db
     final db = await database;
 
-    final resp = await db.rawInsert('''
+    final resp = await db!.rawInsert('''
       INSERT INTO Scans (id, type, value)
       VALUES ($id, '$type', '$value')
 ''');
@@ -61,7 +61,7 @@ class DBProvider {
   Future<int> newScan(ScanModel scan) async {
     final db = await database;
 
-    final res = db.insert('Scans', scan.toJson());
+    final res = db!.insert('Scans', scan.toJson());
     //? res es el id del registro
     return res;
   }
@@ -69,7 +69,7 @@ class DBProvider {
   Future<ScanModel?> getScanById(int id) async {
     final db = await database;
 
-    final res = await db.query('Scans', where: 'id = ?', whereArgs: [id]);
+    final res = await db!.query('Scans', where: 'id = ?', whereArgs: [id]);
 
     return res.isNotEmpty ? ScanModel.fromJson(res.first) : null;
   }
@@ -77,7 +77,7 @@ class DBProvider {
   Future<List<ScanModel>> getScans() async {
     final db = await database;
 
-    final res = await db.query('Scans');
+    final res = await db!.query('Scans');
 
     return res.isNotEmpty ? res.map((e) => ScanModel.fromJson(e)).toList() : [];
   }
@@ -85,7 +85,7 @@ class DBProvider {
   Future<List<ScanModel>> getScansByType(String type) async {
     final db = await database;
 
-    final res = await db.rawQuery('''
+    final res = await db!.rawQuery('''
       SELECT * FROM Scans WHERE type = '$type'
 ''');
 
@@ -94,7 +94,7 @@ class DBProvider {
 
   Future<int> updateScan(ScanModel newScan) async {
     final db = await database;
-    final res = db.update('Scans', newScan.toJson(),
+    final res = db!.update('Scans', newScan.toJson(),
         where: 'id = ?', whereArgs: [newScan.id]);
     return res;
   }
@@ -102,7 +102,7 @@ class DBProvider {
   Future<int> deleteScan(int id) async {
     final db = await database;
 
-    final res = db.delete('Scans', where: 'id = ?', whereArgs: [id]);
+    final res = db!.delete('Scans', where: 'id = ?', whereArgs: [id]);
 
     return res;
   }
@@ -110,7 +110,7 @@ class DBProvider {
   Future<int> deleteAllScans() async {
     final db = await database;
 
-    final res = db.rawDelete('''
+    final res = db!.rawDelete('''
     DELETE FROM Scans
 ''');
 
